@@ -1,5 +1,5 @@
 
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import Card from '../components/Card';
 import Header from '../components/Header';
 
@@ -8,7 +8,11 @@ export default function Home() {
   return (
     <View >
       <Header />
-      <Card/>
+      <ScrollView>
+        <Card />
+        <Card />
+        <Card />
+      </ScrollView>
 
     </View>
   );
