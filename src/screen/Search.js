@@ -1,26 +1,29 @@
-import { View, TextInput, ScrollView, FlatList , ActivityIndicator } from 'react-native';
+import { View, TextInput, ScrollView, FlatList, ActivityIndicator } from 'react-native';
 import { AntDesign, Feather } from '@expo/vector-icons';
 import { useState } from 'react';
 import Constants from 'expo-constants';
 import MiniCard from '../components/MiniCard';
+import { useNavigation } from '@react-navigation/native';
 
 
 // https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=Ironman&type=video&key=AIzaSyAtuydSMp1DlLb0l04cK6iz8gawQ9Kpee8
 
 const Search = () => {
+    const navigation = useNavigation();
     const [input, setInput] = useState()
     const [miniCard, setMiniCard] = useState([])
-    const [loading,SetLoading] = useState(false)
+    const [loading, SetLoading] = useState(false)
 
     const fetchData = () => {
         SetLoading(true)
+
         fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${input}&type=video&key=AIzaSyAtuydSMp1DlLb0l04cK6iz8gawQ9Kpee8`)
             .then(res => res.json()
                 .then(data => {
                     SetLoading(false)
                     setMiniCard(data.items)
                     console.log(miniCard)
-                    
+
                 }
 
                 ))
@@ -42,7 +45,7 @@ const Search = () => {
                 elevation: 3,
                 backgroundColor: "white"
             }}>
-                <AntDesign name="back" size={24} color="black" />
+                <AntDesign name="back" size={24} color="black" onPress={() => { navigation.goBack() }} />
                 <TextInput
                     value={input}
                     onChangeText={(txt) => setInput(txt)}
@@ -51,23 +54,23 @@ const Search = () => {
                 <Feather name="send" size={24} color="black" onPress={() => fetchData()
                 } />
             </View>
-          {loading ?<ActivityIndicator size="large" color='red' style={{marginTop:10}}/>:null}  
+            {loading ? <ActivityIndicator size="large" color='red' style={{ marginTop: 10 }} /> : null}
             <FlatList
                 data={miniCard}
-                renderItem={({item}) => {
+                renderItem={({ item }) => {
                     return <MiniCard
-                    videoId={item.id.videoId}
-                    title={item.snippet.title}
-                    channel={item.snippet.channelTitle}
+                        videoId={item.id.videoId}
+                        title={item.snippet.title}
+                        channel={item.snippet.channelTitle}
                     />
                 }}
-                keyExtractor={(item)=>{item.id.videoId}}
+                keyExtractor={(item) => { item.id.videoId }}
             />
 
 
 
         </View>
-    ) 
+    )
 }
 
 export default Search;

@@ -2,12 +2,14 @@
 import { StyleSheet, Text, View } from 'react-native';
 import Color from '../constant/Color';
 import { AntDesign, Entypo, MaterialIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 
 
 import Constants from 'expo-constants';
 
 export default function Header() {
+    const navigation = useNavigation();
     return (
         <View style={styles.topView}>
             <View style={styles.logoView}>
@@ -17,7 +19,7 @@ export default function Header() {
             <View style={styles.icon}>
                 <Entypo name="video-camera" size={24} color="black" />
                 <MaterialIcons name="account-circle" size={24} color="black" />
-                <AntDesign name="search1" size={24} color="black" />
+                <AntDesign name="search1" size={24} color="black" onPress={()=>{navigation.navigate('search')}} />
 
             </View>
         </View>

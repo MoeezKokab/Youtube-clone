@@ -3,7 +3,8 @@ import { View, Image, Text, Dimensions } from "react-native";
 const MiniCard = (props) => {
     return (
         <View style={{ flexDirection: "row", margin: 10, marginBottom: 0 }}>
-            <Image source={{ uri: `https://i.ytimg.com/vi/${props.videoId}/maxresdefault.jpg` }}
+           
+            <Image source={{ uri: `https://i.ytimg.com/vi/${props.videoId}/hqdefault.jpg` }}
                 style={{
                     height: 100,
                     width: "45%"
